@@ -8,9 +8,9 @@
     { "name": "Pavan Kumar Sunkara", "email": "pavan.sss1991@gmail.com" }
   ],
   "dependencies": {
-    "octonode": "*",
     "nconf": "*",
-    "optimist": "*"
+    "winston": "*",
+    "irc": "*"
   },
   "devDependencies": {},
   "keywords": ["irc", "bot"],
@@ -18,12 +18,11 @@
     "type": "git",
     "url": "git://github.com/pkumar/pibot.git"
   },
-  "bin": "./bin/pibot",
-  "main": "./lib/pibot",
+  "main": "./pibot",
   "scripts": {
     "test": ""
   },
   "engines": {
-    "node": ">=0.6.0"
+    "node": ">=0.4.0"
   }
 }
