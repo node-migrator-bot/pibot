@@ -1,0 +1,29 @@
+{
+  "name": "pibot",
+  "description": "personal IRC bot",
+  "version": "0.1.0",
+  "homepage": "http://pkumar.github.com/pibot",
+  "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com> (http://pkumar.github.com)",
+  "contributors": [
+    { "name": "Pavan Kumar Sunkara", "email": "pavan.sss1991@gmail.com" }
+  ],
+  "dependencies": {
+    "octonode": "*",
+    "nconf": "*",
+    "optimist": "*"
+  },
+  "devDependencies": {},
+  "keywords": ["irc", "bot"],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pkumar/pibot.git"
+  },
+  "bin": "./bin/pibot",
+  "main": "./lib/pibot",
+  "scripts": {
+    "test": ""
+  },
+  "engines": {
+    "node": ">=0.6.0"
+  }
+}
