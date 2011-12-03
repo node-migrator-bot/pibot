@@ -10,13 +10,13 @@ var pibot = module.exports;
  * Requring modules
  */
 var nconf = require('nconf')
-    , winston = require('winston')
-    , irc = require('irc')
-    , director = require('director')
-    , schema = require('./schema')
-    , fs = require('fs')
-    , http = require('http')
-    , path = require('path')
+  , winston = require('winston')
+  , irc = require('irc')
+  , director = require('director')
+  , schema = require('./schema')
+  , fs = require('fs')
+  , http = require('http')
+  , path = require('path')
 
 /*
  * Initialize pibot
