@@ -71,30 +71,32 @@ pibot.buildHTTP = function () {
   pibot.router = new director.http.Router({
     '/': {
       get: function () {
-        this.res.writeHead(200, {'Content-Type': 'text/html'});
-        fs.readFile(path.join(__dirname, 'scaffold', 'index.html'), function (err, data) {
+        var res = this.res;
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        fs.readFile(path.join(__dirname, 'scaffold', 'index.html'), 'utf8', function (err, data) {
           if (err) throw err;
-          this.res.end(data);
+          res.end(data.replace('botname', nconf.get('nick')), 'utf8');
         });
       }
     },
     '/ninja': {
       get: function () {
-        this.res.writeHead(200, {'Content-Type': 'image/jpeg'});
+        var res = this.res;
+        res.writeHead(200, {'Content-Type': 'image/jpeg'});
         fs.readFile(path.join(__dirname, 'scaffold', 'ninja.jpg'), function (err, data) {
           if (err) throw err;
-          this.res.end(data, 'binary');
+          res.end(data, 'binary');
         });
       }
     }
   });
-  http.createServer(function (req, req) {
+  http.createServer(function (req, res) {
     pibot.router.dispatch(req, res, function (noroute) {
       if (noroute) {
         res.writeHead(404, {'Content-type': 'text/html'});
         fs.readFile(path.join(__dirname, 'scaffold', 'error.html'), function (err, data) {
           if (err) throw err;
-          res.end(data);
+          res.end(data.replace('botname', nconf.get('nick')), 'utf8');
         });
       }
     });

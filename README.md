@@ -11,7 +11,7 @@ npm install pibot
 If you want to create your own bot, just execute the following command and a small bot will be installed at the given path
 
 ```
-pibot [PATH]
+pibot <BOTNAME> [PATH]
 ```
 
 If you like this project, please watch this and follow me.

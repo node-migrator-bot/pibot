@@ -33,9 +33,9 @@ if (!path.existsSync(target)) {
  * Copy files
  */
 ['.gitignore', 'index.js', 'package.json', 'config.json'].forEach(function (e,i,a) {
-  fs.readFile(path.resolve(path.join(__dirname, 'scaffold', e)), function (err, data) {
+  fs.readFile(path.resolve(path.join(__dirname, 'scaffold', e)), 'utf8', function (err, data) {
     if (err) throw err;
-    fs.writeFile(path.join(target, e), data.replace('botname', botname), function (err) {
+    fs.writeFile(path.join(target, e), data.replace('botname', botname), 'utf8', function (err) {
        if (err) throw err;
        winston.info('Copied file "' + e + '"');
     });
