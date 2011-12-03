@@ -6,7 +6,7 @@
 /*
  * Requiring modules
  */
-var winston = require('winston')
+var winston = require('winston').cli()
   , path = require('path')
   , fs = require('fs');
 
@@ -26,7 +26,27 @@ if (!path.existsSync(target)) {
     winston.error(err);
     process.exit(1);
   }
-  winston.info('Created directory ' + target);
+  winston.info(('Created directory ' + target).cyan);
+}
+
+/*
+ * Make schemas directory
+ */
+var schemas = path.join(target, 'schemas');
+if (!path.existsSync(schemas)) {
+  fs.mkdirSync(schemas, 0755);
+  fs.writeFileSync(path.join(schemas, '.gitkeep'), '');
+  winston.info('Created schemas directory'.yellow);
+}
+
+/*
+ * Make scripts directory
+ */
+var scripts = path.join(target, 'scripts');
+if (!path.existsSync(scripts)) {
+  fs.mkdirSync(scripts, 0755);
+  fs.writeFileSync(path.join(scripts, '.gitkeep'), '');
+  winston.info('Created scripts directory'.magenta);
 }
 
 /*
@@ -37,7 +57,7 @@ if (!path.existsSync(target)) {
     if (err) throw err;
     fs.writeFile(path.join(target, e), data.replace('botname', botname), 'utf8', function (err) {
        if (err) throw err;
-       winston.info('Copied file "' + e + '"');
+       winston.info(('Copied file "' + e + '"').cyan);
     });
   });
 });
