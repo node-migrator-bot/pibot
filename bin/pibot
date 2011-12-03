@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+/*
+ * pibot - Binary executable to create a bot
+ */
+
+/*
+ * Requiring modules
+ */
+var winston = require('winston')
+    , path = require('path')
+    , fs = require('fs');
+
+/*
+ * Build path
+ */
+var target = path.resolve(process.argv[2]);
+
+/*
+ * Create directory
+ */
+if (!path.existsSync(target)) {
+  try {
+    fs.mkdirSync(target, 0755);
+  } catch (err) {
+    winston.error(err);
+    process.exit(1);
+  }
+  winston.info('Created directory ' + target);
+}
+
+/*
+ * Copy files
+ */

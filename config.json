@@ -5,5 +5,12 @@
   "username": "pibot",
   "realname": "personal IRC bot",
   "port": 6667,
-  "channels": ["#pibot"]
+  "channels": ["#pibot"],
+  "admin": "pksunkara",
+  "db": {
+    "host": "127.0.0.1",
+    "port": 5984,
+    "name": "pibot",
+    "auth": ""
+  }
 }

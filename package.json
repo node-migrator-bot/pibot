@@ -10,7 +10,8 @@
   "dependencies": {
     "nconf": "*",
     "winston": "*",
-    "irc": "*"
+    "irc": "*",
+    "resourceful": "0.1.4"
   },
   "devDependencies": {},
   "keywords": ["irc", "bot"],
@@ -18,10 +19,9 @@
     "type": "git",
     "url": "git://github.com/pkumar/pibot.git"
   },
+  "bin": "./bin/pibot",
   "main": "./pibot",
-  "scripts": {
-    "test": ""
-  },
+  "scripts": {},
   "engines": {
     "node": ">=0.4.0"
   }
