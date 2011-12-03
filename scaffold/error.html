@@ -6,16 +6,17 @@
 		<meta name="description" content="a personal IRC bot">
 		<style type="text/css" media="screen">
 			body {background: black; padding-top: 50px;}
-			#ninja {margin: auto; width: 200px; text-align: center; margin-bottom: 50px;}
-			#botname {color: #ff0000; font-size: 100px; font-family: verdana; font-weight: bold;}
+			@font-face {font-family: 'LastNinjaRegular'; src: url('ninja.woff') format('woff');}
+			#ninja {margin: auto; text-align: center; margin-bottom: 20px;}
+			#bot {color: #ff0000; font-size: 60px; font-weight: bold; font-family: 'LastNinjaRegular';}
 		</style>
 	</head>
 	<body>
 		<div id="ninja">
-			<img width="200" height="350" src="ninja">
+			<img width="200" height="350" src="ninja.jpg">
 		</div>
-		<div id="ninja" style="width:300px;">
-			<span>404: Page not found</span>
+		<div id="ninja">
+			<span id="bot">page not found</span>
 		</div>
 	</body>
 </html>

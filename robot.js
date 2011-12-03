@@ -75,15 +75,26 @@ pibot.buildHTTP = function () {
         res.writeHead(200, {'Content-Type': 'text/html'});
         fs.readFile(path.join(__dirname, 'scaffold', 'index.html'), 'utf8', function (err, data) {
           if (err) throw err;
+          data = data.replace('botname', nconf.get('nick'));
           res.end(data.replace('botname', nconf.get('nick')), 'utf8');
         });
       }
     },
-    '/ninja': {
+    '/ninja.jpg': {
       get: function () {
         var res = this.res;
         res.writeHead(200, {'Content-Type': 'image/jpeg'});
         fs.readFile(path.join(__dirname, 'scaffold', 'ninja.jpg'), function (err, data) {
+          if (err) throw err;
+          res.end(data, 'binary');
+        });
+      }
+    },
+    '/ninja.woff': {
+      get: function () {
+        var res = this.res;
+        res.writeHead(200, {'Content-Type': 'application/x-font-woff'});
+        fs.readFile(path.join(__dirname, 'scaffold', 'ninja.woff'), function (err, data) {
           if (err) throw err;
           res.end(data, 'binary');
         });
@@ -94,7 +105,7 @@ pibot.buildHTTP = function () {
     pibot.router.dispatch(req, res, function (noroute) {
       if (noroute) {
         res.writeHead(404, {'Content-type': 'text/html'});
-        fs.readFile(path.join(__dirname, 'scaffold', 'error.html'), function (err, data) {
+        fs.readFile(path.join(__dirname, 'scaffold', 'error.html'), 'utf8', function (err, data) {
           if (err) throw err;
           res.end(data.replace('botname', nconf.get('nick')), 'utf8');
         });
