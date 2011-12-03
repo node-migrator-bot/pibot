@@ -9,7 +9,7 @@ var pibot = require('pibot')
  * Calculate paths
  */
 var paths = [];
-var deps = fs.readdirSync(path.join(__dirname, 'node_modules');
+var deps = fs.readdirSync(path.join(__dirname, 'node_modules'));
 
 deps.forEach(function (e,i,a) {
   if (e.match(/.*-pibot/)) {
@@ -18,6 +18,6 @@ deps.forEach(function (e,i,a) {
 });
 
 /*
- * Initialize botname
+ * Initialize bot
  */
 pibot.init('./config.json', paths);

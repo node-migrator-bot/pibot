@@ -7,8 +7,9 @@
     "pibot": "0.1.0"
   },
   "devDependencies": {},
-  "main": "./index",
-  "scripts": {},
+  "scripts": {
+    "start": "index.js"
+  },
   "engines": {
     "node": ">=0.4.0"
   }
