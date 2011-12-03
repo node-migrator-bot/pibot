@@ -20,8 +20,8 @@
     "type": "git",
     "url": "git://github.com/pkumar/pibot.git"
   },
-  "bin": "./bin/pibot",
-  "main": "./pibot",
+  "bin": "./pibot",
+  "main": "./index",
   "scripts": {},
   "engines": {
     "node": ">=0.4.0"

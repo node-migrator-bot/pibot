@@ -11,21 +11,22 @@ var winston = require('winston')
     , fs = require('fs');
 
 /*
- * Build path
+ * Build variables
  */
-var target = path.resolve(process.argv[2]);
+var target = path.resolve(process.argv[3]);
+var botname = process.argv[2];
 
 /*
  * Create directory
  */
-if (!path.existsSync(target)) {
+if (!path.existsSync(path.join(target, botname))) {
   try {
-    fs.mkdirSync(target, 0755);
+    fs.mkdirSync(path.join(target, botname), 0755);
   } catch (err) {
     winston.error(err);
     process.exit(1);
   }
-  winston.info('Created directory ' + target);
+  winston.info('Created directory ' + path.join(target, botname));
 }
 
 /*

@@ -23,6 +23,7 @@ pibot.init = function (conf, paths) {
   pibot.loadConfig(conf);
   pibot.buildIRC();
   pibot.buildDB();
+  pibot.buildHTTP();
   pibot.loadPaths(paths);
 }
 
@@ -59,6 +60,12 @@ pibot.buildDB = function () {
     auth: nconf.get('db').auth,
     database: nconf.get('db').name
   });
+}
+
+/*
+ * Build HTTP server
+ */
+pibot.buildHTTP = function () {
 }
 
 /*
