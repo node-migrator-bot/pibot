@@ -31,7 +31,7 @@ pibot.init = function (conf, paths) {
  */
 pibot.loadConfig = function (conf) {
   winston.info('Loading configuration');
-  nconf.file({ file: conf || path.resolve(__dirname, 'config.json')});
+  nconf.file({ file: conf || path.resolve(path.join(__dirname, 'config.json'))});
   nconf.defaults({});
 }
 
@@ -65,7 +65,7 @@ pibot.buildDB = function () {
  * Load scripts from multiple paths
  */
 pibot.loadPaths = function (paths) {
-  paths.push(path.resolve('./scripts'));
+  paths.push(path.resolve(path.join(__dirname, 'scripts')));
   paths.forEach(function (e,i,a) {
     pibot.loadPath(e);
   });
@@ -78,7 +78,7 @@ pibot.loadPath = function (dir) {
   winston.info('Loading scripts from ' + dir);
   path.exists(dir, function (exists) {
     if (exists) {
-      fs.readdirSync(dir, function (err, files) {
+      fs.readdir(dir, function (err, files) {
         if (err) {
           winston.error('Cannot read directory, ' + dir);
         } else {
@@ -98,7 +98,7 @@ pibot.loadPath = function (dir) {
  */
 pibot.loadScript = function (dir, script) {
   try {
-    require(path.basename(path.join(dir, script)))(pibot.client, pibot.couch);
+    require(path.join(dir, path.basename(script)))(pibot.client, pibot.couch);
   } catch (err) {
     winston.error(err);
   }
