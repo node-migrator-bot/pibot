@@ -12,8 +12,10 @@ var pibot = module.exports;
 var nconf = require('nconf')
     , winston = require('winston')
     , irc = require('irc')
+    , director = require('director')
     , schema = require('./schema')
     , fs = require('fs')
+    , http = require('http')
     , path = require('path')
 
 /*
@@ -40,7 +42,7 @@ pibot.loadConfig = function (conf) {
  * Build IRC client
  */
 pibot.buildIRC = function () {
-  pibot.client = new irc.Client(nconf.get('server'), nconf.get('nick'), {
+  pibot.chat = new irc.Client(nconf.get('server'), nconf.get('nick'), {
     port: nconf.get('port'),
     password: nconf.get('password'),
     userName: nconf.get('username'),
@@ -66,6 +68,28 @@ pibot.buildDB = function () {
  * Build HTTP server
  */
 pibot.buildHTTP = function () {
+  pibot.router = new director.http.Router({
+    '/': {
+      get: function () {
+        this.res.writeHead(200, {'Content-type': 'text/html'});
+        fs.readFile(path.join(__dirname, 'scaffold', 'index.html'), function (err, data) {
+          if (err) throw err;
+          res.end(data);
+        });
+      }
+    }
+  });
+  http.createServer(function (req, req) {
+    pibot.router.dispatch(req, res, function (noroute) {
+      if (noroute) {
+        res.writeHead(404, {'Content-type': 'text/html'});
+        fs.readFile(path.join(__dirname, 'scaffold', 'error.html'), function (err, data) {
+          if (err) throw err;
+          res.end(data);
+        });
+      }
+    });
+  }).listen(3000);
 }
 
 /*
@@ -105,7 +129,7 @@ pibot.loadPath = function (dir) {
  */
 pibot.loadScript = function (dir, script) {
   try {
-    require(path.join(dir, path.basename(script)))(pibot.client, pibot.couch);
+    require(path.join(dir, path.basename(script)))(pibot.chat, pibot.couch, pibot.router);
   } catch (err) {
     winston.error(err);
   }
