@@ -13,7 +13,7 @@ var nconf = require('nconf')
   , winston = require('winston')
   , irc = require('irc')
   , director = require('director')
-  , schema = require('./schema')
+  , resourceful = require('resourceful')
   , fs = require('fs')
   , http = require('http')
   , path = require('path')
@@ -56,12 +56,12 @@ pibot.buildIRC = function () {
  * Build DB client
  */
 pibot.buildDB = function () {
-  pibot.couch = schema({
+  pibot.couch = {
     host: nconf.get('db').host,
     port: nconf.get('db').port,
     auth: nconf.get('db').auth,
     database: nconf.get('db').name
-  });
+  };
 }
 
 /*
@@ -71,10 +71,19 @@ pibot.buildHTTP = function () {
   pibot.router = new director.http.Router({
     '/': {
       get: function () {
-        this.res.writeHead(200, {'Content-type': 'text/html'});
+        this.res.writeHead(200, {'Content-Type': 'text/html'});
         fs.readFile(path.join(__dirname, 'scaffold', 'index.html'), function (err, data) {
           if (err) throw err;
-          res.end(data);
+          this.res.end(data);
+        });
+      }
+    },
+    '/ninja': {
+      get: function () {
+        this.res.writeHead(200, {'Content-Type': 'image/jpeg'});
+        fs.readFile(path.join(__dirname, 'scaffold', 'ninja.jpg'), function (err, data) {
+          if (err) throw err;
+          this.res.end(data, 'binary');
         });
       }
     }
@@ -93,19 +102,49 @@ pibot.buildHTTP = function () {
 }
 
 /*
- * Load scripts from multiple paths
+ * Load scripts & schemas from multiple paths
  */
 pibot.loadPaths = function (paths) {
-  paths.push(path.resolve(path.join(__dirname, 'scripts')));
+  paths.push(path.resolve(__dirname));
   paths.forEach(function (e,i,a) {
     pibot.loadPath(e);
   });
 }
 
 /*
- * Load scripts from a single path
+ * Load scripts & schemas from a single path
  */
 pibot.loadPath = function (dir) {
+  pibot.loadSchemas(path.join(dir, 'schemas'));
+  pibot.loadScripts(path.join(dir, 'scripts'));
+}
+
+/*
+ * Load schemas from a single path
+ */
+pibot.loadSchemas = function (dir) {
+  winston.info('Loading schemas from ' + dir);
+  path.exists(dir, function (exists) {
+    if (exists) {
+      fs.readdir(dir, function (err, files) {
+        if (err) {
+          winston.error('Cannot read directory, ' + dir);
+        } else {
+          files.forEach(function (e,i,a) {
+            pibot.loadSchema(dir, e);
+          });
+        }
+      });
+    } else {
+      winston.error('No path exists, ' + dir);
+    }
+  });
+}
+
+/*
+ * Load scripts from a single path
+ */
+pibot.loadScripts = function (dir) {
   winston.info('Loading scripts from ' + dir);
   path.exists(dir, function (exists) {
     if (exists) {
@@ -125,13 +164,27 @@ pibot.loadPath = function (dir) {
 }
 
 /*
- * Load a script
+ * Load a single schema
+ */
+pibot.loadSchema = function (dir, schema) {
+  if (path.extname(schema) == 'js') {
+    try {
+      winston.info('Loading schema ' + schema + ' from ' + path.join(dir, schema));
+      require(path.join(dir, path.basename(schema)))(pibot.couch);
+    } catch (err) {
+      winston.error(err);
+    }
+  }
+}
+
+/*
+ * Load a single script
  */
 pibot.loadScript = function (dir, script) {
-  if (path.extname(script)=='js') {
+  if (path.extname(script) == 'js') {
     try {
       winston.info('Loading script ' + script + ' from ' + path.join(dir, script));
-      require(path.join(dir, path.basename(script)))(pibot.chat, pibot.couch, pibot.router);
+      require(path.join(dir, path.basename(script)))(pibot.chat, pibot.router);
     } catch (err) {
       winston.error(err);
     }

@@ -1,6 +1,6 @@
 {
   "server": "irc.dev",
-  "nick": "pibot",
+  "nick": "botname",
   "password": "password",
   "username": "pibot",
   "realname": "personal IRC bot",

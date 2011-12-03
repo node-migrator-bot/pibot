@@ -13,7 +13,8 @@ var winston = require('winston')
 /*
  * Build variables
  */
-var target = path.resolve(process.argv[2]);
+var botname = process.argv[2];
+var target = path.join(path.resolve(process.argv[3]), botname);
 
 /*
  * Create directory
@@ -34,7 +35,7 @@ if (!path.existsSync(target)) {
 ['.gitignore', 'index.js', 'package.json', 'config.json'].forEach(function (e,i,a) {
   fs.readFile(path.resolve(path.join(__dirname, 'scaffold', e)), function (err, data) {
     if (err) throw err;
-    fs.writeFile(path.join(target, e), data, function (err) {
+    fs.writeFile(path.join(target, e), data.replace('botname', botname), function (err) {
        if (err) throw err;
        winston.info('Copied file "' + e + '"');
     });
