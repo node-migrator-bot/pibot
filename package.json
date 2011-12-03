@@ -8,9 +8,10 @@
     { "name": "Pavan Kumar Sunkara", "email": "pavan.sss1991@gmail.com" }
   ],
   "dependencies": {
-    "nconf": "*",
-    "winston": "*",
-    "irc": "*",
+    "nconf": "~0.5.0",
+    "winston": "~0.5.0",
+    "irc": "0.3.3",
+    "director": "1.0.6",
     "resourceful": "0.1.4"
   },
   "devDependencies": {},
