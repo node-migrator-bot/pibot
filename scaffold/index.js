@@ -4,4 +4,4 @@
 var pibot = require('pibot')
   , path = require('fs');
 
-pibot.init();
+pibot.init('./config.json');

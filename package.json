@@ -21,7 +21,7 @@
     "url": "git://github.com/pkumar/pibot.git"
   },
   "bin": "./pibot",
-  "main": "./index",
+  "main": "./robot",
   "scripts": {},
   "engines": {
     "node": ">=0.4.0"

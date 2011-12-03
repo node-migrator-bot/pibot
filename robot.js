@@ -26,7 +26,7 @@ pibot.init = function (conf, paths) {
   pibot.buildIRC();
   pibot.buildDB();
   pibot.buildHTTP();
-  pibot.loadPaths(paths);
+  pibot.loadPaths(paths || []);
 }
 
 /*
@@ -128,9 +128,12 @@ pibot.loadPath = function (dir) {
  * Load a script
  */
 pibot.loadScript = function (dir, script) {
-  try {
-    require(path.join(dir, path.basename(script)))(pibot.chat, pibot.couch, pibot.router);
-  } catch (err) {
-    winston.error(err);
+  if (path.extname(script)=='js') {
+    try {
+      winston.info('Loading script ' + script + ' from ' + path.join(dir, script));
+      require(path.join(dir, path.basename(script)))(pibot.chat, pibot.couch, pibot.router);
+    } catch (err) {
+      winston.error(err);
+    }
   }
 }
