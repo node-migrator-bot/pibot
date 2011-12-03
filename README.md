@@ -8,10 +8,18 @@ npm install pibot
 ```
 
 ## Usage
-If you want to create your own bot, just execute the following command and a small bot will be installed at the given path
+- If you want to create your own bot, just execute the following command and a small bot will be installed at the given path
 
 ```
 pibot <BOTNAME> [PATH]
+```
+
+- Now go to the folder where the bot is installed and edit config.json
+
+- Deploy the bot using nodejitsu
+
+```
+jitsu deploy
 ```
 
 If you like this project, please watch this and follow me.
