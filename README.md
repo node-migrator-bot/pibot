@@ -8,15 +8,13 @@ npm install pibot
 ```
 
 ## Usage
+If you want to create your own bot, just execute the following command and a small bot will be installed at the given path
 
-_Coming soon!_
+```
+pibot [PATH]
+```
 
 If you like this project, please watch this and follow me.
-
-### Testing
-```
-npm test
-```
 
 ## Contributors
 Here is a list of [Contributors](http://github.com/pkumar/pibot/contributors)
