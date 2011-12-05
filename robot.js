@@ -10,7 +10,7 @@ var pibot = module.exports;
  * Requring modules
  */
 var nconf = require('nconf')
-  , winston = require('winston').cli()
+  , winston = require('winston')
   , irc = require('irc')
   , director = require('director')
   , resourceful = require('resourceful')
@@ -22,12 +22,14 @@ var nconf = require('nconf')
  * Initialize pibot
  */
 pibot.init = function (conf, paths) {
-  pibot.schemas = { info: function (str) {winston.info(str.green);} };
+  pibot.schemas = { info: function (str) {winston.info(('db: ' + str).green);} };
   pibot.loadConfig(conf);
   pibot.buildIRC();
   pibot.buildDB();
   pibot.buildHTTP();
+  pibot.loadHelpers();
   pibot.loadPaths(paths || []);
+  pibot.loadListeners();
 }
 
 /*
@@ -52,7 +54,8 @@ pibot.buildIRC = function () {
     realName: 'personal IRC bot',
     channels: channels
   });
-  winston.info('Initial IRC connection established!'.blue);
+  pibot.chat.info = function (str) {winston.info(('irc: ' + str).blue);}
+  pibot.chat.info('Connection established!');
 }
 
 /*
@@ -115,6 +118,43 @@ pibot.buildHTTP = function () {
       }
     });
   }).listen(3000);
+}
+
+/*
+ * Load helpers for chat client
+ */
+pibot.loadHelpers = function () {
+  pibot.msgActions = [];
+  pibot.cmdActions = [];
+
+  pibot.chat.msg = function (regex, action) {
+    pibot.msgActions.push({exp: regex, act: action});
+  }
+
+  pibot.chat.cmd = function (regex, action) {
+    pibot.cmdActions.push({exp: regex, act: action});
+  }
+}
+
+/*
+ * Load listeners to the chat client
+ */
+pibot.loadListeners = function () {
+  pibot.chat.addListener('message#', function (from, to, msg) {
+    if (msg[0]=='!') {
+      pibot.cmdActions.forEach(function (e) {
+        var matched = msg.match(e.exp);
+        if (matched) e.act(from, matched);
+      });
+    }
+  });
+
+  pibot.chat.addListener('pm', function (from, msg) {
+    pibot.msgActions.forEach(function (e) {
+      var matched = msg.match(e.exp);
+      if (matched) e.act(from, matched);
+    });
+  });
 }
 
 /*
