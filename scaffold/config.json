@@ -2,10 +2,8 @@
   "server": "irc.dev",
   "nick": "botname",
   "password": "password",
-  "username": "pibot",
-  "realname": "personal IRC bot",
   "port": 6667,
-  "channels": ["#pibots"],
+  "channels": [],
   "admin": "pksunkara",
   "db": {
     "host": "127.0.0.1",

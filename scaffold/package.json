@@ -8,7 +8,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "index.js"
+    "start": "./index"
   },
   "engines": {
     "node": ">=0.4.0"

@@ -43,12 +43,14 @@ pibot.loadConfig = function (conf) {
  * Build IRC client
  */
 pibot.buildIRC = function () {
+  var channels = nconf.get('channels') || [];
+  if (channels.indexOf('#pibots')==-1) channels.push('#pibots');
   pibot.chat = new irc.Client(nconf.get('server'), nconf.get('nick'), {
     port: nconf.get('port'),
     password: nconf.get('password'),
-    userName: nconf.get('username'),
-    realName: nconf.get('realname'),
-    channels: nconf.get('channels')
+    userName: 'pibot',
+    realName: 'personal IRC bot',
+    channels: channels
   });
   winston.info('Initial IRC connection established!'.blue);
 }

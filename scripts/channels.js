@@ -5,15 +5,17 @@
 module.exports = function (chat, schemas, router) {
   chat.opt.channels.forEach(function (e) {
     if (e[0] == '#') e = e.substr(1);
-    schemas.channels.find({name: e}, function (err, obj) {
-      if (obj.length == 0) {
-        schemas.channels.create({name: e, active: false}, function (err, channel) {
-          schemas.info('Channel: ' + channel.name + ' created');
+    schemas.channels.get('channel/' + e, function (err, obj) {
+      if (!obj) {
+        schemas.channels.create({_id: 'channel/' + e, active: false}, function (err, channel) {
+          if (err) throw err;
+          schemas.info('Channel: ' + channel._id + ' created');
         });
       } else {
-        if (!obj[0].active) {
-          obj[0].update({active: true}, function (err, channel) {
-            schemas.info('Channel: ' + channel.name + 'activated');
+        if (!obj.active) {
+          obj.update({active: true}, function (err, channel) {
+            if (err) throw err;
+            schemas.info('Channel: ' + channel._id + ' activated');
           });
         }
       }
