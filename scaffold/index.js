@@ -12,7 +12,7 @@ var paths = [__dirname];
 var deps = fs.readdirSync(path.join(__dirname, 'node_modules'));
 
 deps.forEach(function (e,i,a) {
-  if (e.match(/.*-pibot/)) {
+  if (e.match(/pibot-.*/)) {
     paths.push(path.join(__dirname, 'node_modules', e));
   }
 });

@@ -1,6 +1,6 @@
 # pibot
 
-Personal IRC bot
+Personal Interactive Bot
 
 ## Installation
 ```

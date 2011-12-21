@@ -1,9 +1,9 @@
 {
   "name": "pibot",
-  "description": "personal IRC bot",
+  "description": "personal interactive bot",
   "version": "0.1.0",
-  "homepage": "http://pkumar.github.com/pibot",
-  "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com> (http://pkumar.github.com)",
+  "homepage": "http://pksunkara.github.com/pibot",
+  "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com> (http://pksunkara.github.com)",
   "contributors": [
     { "name": "Pavan Kumar Sunkara", "email": "pavan.sss1991@gmail.com" }
   ],
@@ -11,14 +11,18 @@
     "nconf": "~0.5.0",
     "winston": "~0.5.0",
     "irc": "0.3.3",
-    "director": "1.0.6",
-    "resourceful": "0.1.4"
+    "director": "git+https://github.com/flatiron/director.git",
+    "resourceful": "git+https://github.com/flatiron/resourceful.git#basic"
   },
+  "bundleDependencies": [
+    "director",
+    "resourceful"
+  ],
   "devDependencies": {},
-  "keywords": ["irc", "bot"],
+  "keywords": ["irc", "bot", "pibot"],
   "repository": {
     "type": "git",
-    "url": "git://github.com/pkumar/pibot.git"
+    "url": "git://github.com/pksunkara/pibot.git"
   },
   "bin": "./pibot",
   "main": "./robot",
