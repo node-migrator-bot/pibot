@@ -5,8 +5,11 @@
 module.exports = function (resourceful, couch) {
   return resourceful.define('channel', function () {
     this.use('couchdb', couch);
-    this.property('name');
-    this.property('pass');
-    this.property('active', Boolean);
+
+    this.string('name');
+    this.string('pass');
+    this.bool('active');
+
+    this.filter('active', {active: true});
   });
 }

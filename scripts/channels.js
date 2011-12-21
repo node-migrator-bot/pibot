@@ -36,7 +36,11 @@ module.exports = function (chat, schemas, router) {
     dbJoinChannel(e, '');
   });
 
-  // TODO: join all channels which are active
+  schemas.channels.active(function (err, obj) {
+    obj.forEach(function (e) {
+      dbJoinChannel(e.name, e.pass);
+    });
+  });
 
   chat.msg(/join ([^\s]*)([^\s]*)?/, function (n, m) {
     if (m[1][0] != '#') m[1] = '#' + m[1];
