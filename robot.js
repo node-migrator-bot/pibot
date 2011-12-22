@@ -39,6 +39,7 @@ pibot.loadConfig = function (conf) {
   winston.info('Loading configuration'.cyan);
   nconf.file({ file: conf || path.resolve(path.join(__dirname, 'config.json'))});
   nconf.defaults({});
+  pibot.nick = nconf.get('nick');
 }
 
 /*
@@ -47,7 +48,7 @@ pibot.loadConfig = function (conf) {
 pibot.buildIRC = function () {
   var channels = nconf.get('channels') || [];
   if (channels.indexOf('#pibots')==-1) channels.push('#pibots');
-  pibot.chat = new irc.Client(nconf.get('server'), nconf.get('nick'), {
+  pibot.chat = new irc.Client(nconf.get('server'), pibot.nick, {
     port: nconf.get('port'),
     password: nconf.get('password'),
     userName: 'pibot',
@@ -140,11 +141,11 @@ pibot.loadHelpers = function () {
  * Load listeners to the chat client
  */
 pibot.loadListeners = function () {
-  pibot.chat.addListener('message#', function (from, to, msg) {
-    if (msg[0]=='!') {
+  pibot.chat.addListener('message', function (from, to, msg) {
+    if (msg[0]=='!' && to!=pibot.nick) {
       pibot.cmdActions.forEach(function (e) {
         var matched = msg.match(e.exp);
-        if (matched) e.act(from, matched);
+        if (matched) e.act(from, to, matched);
       });
     }
   });
@@ -161,7 +162,6 @@ pibot.loadListeners = function () {
  * Load scripts & schemas from multiple paths
  */
 pibot.loadPaths = function (paths) {
-  paths.push(path.resolve(__dirname));
   paths.forEach(function (e,i,a) {
     pibot.loadPath(e);
   });
