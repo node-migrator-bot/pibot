@@ -1,0 +1,23 @@
+{
+  "name": "pibot-basic",
+  "description": "basic plugin for personal IRC bot",
+  "version": "0.1.0",
+  "homepage": "http://pksunkara.github.com/pibot",
+  "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com> (http://pksunkara.github.com)",
+  "contributors": [
+    { "name": "Pavan Kumar Sunkara", "email": "pavan.sss1991@gmail.com" }
+  ],
+  "dependencies": {},
+  "bundleDependencies": [],
+  "devDependencies": {},
+  "keywords": ["irc", "bot", "pibot"],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pksunkara/pibot.git"
+  },
+  "main": ".",
+  "scripts": {},
+  "engines": {
+    "node": ">=0.4.0"
+  }
+}
