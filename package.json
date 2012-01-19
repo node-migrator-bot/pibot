@@ -1,11 +1,25 @@
 {
   "name": "pibot",
-  "description": "personal interactive bot",
   "version": "0.1.0",
-  "homepage": "http://pksunkara.github.com/pibot",
   "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com> (http://pksunkara.github.com)",
+  "description": "personal interactive bot",
+  "main": "./robot",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pksunkara/pibot.git"
+  },
+  "keywords": [
+    "irc",
+    "bot",
+    "pibot"
+  ],
+  "homepage": "http://pksunkara.github.com/pibot",
+  "scripts": {},
   "contributors": [
-    { "name": "Pavan Kumar Sunkara", "email": "pavan.sss1991@gmail.com" }
+    {
+      "name": "Pavan Kumar Sunkara",
+      "email": "pavan.sss1991@gmail.com"
+    }
   ],
   "dependencies": {
     "nconf": "~0.5.0",
@@ -14,20 +28,22 @@
     "director": "git+https://github.com/flatiron/director.git",
     "resourceful": "git+https://github.com/flatiron/resourceful.git#basic"
   },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=0.4.0"
+  },
+  "bugs": {
+    "url": "https://github.com/pksunkara/pibot/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/pksunkara/pibot/raw/master/LICENSE"
+    }
+  ],
+  "bin": "./pibot",
   "bundleDependencies": [
     "director",
     "resourceful"
-  ],
-  "devDependencies": {},
-  "keywords": ["irc", "bot", "pibot"],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/pksunkara/pibot.git"
-  },
-  "bin": "./pibot",
-  "main": "./robot",
-  "scripts": {},
-  "engines": {
-    "node": ">=0.4.0"
-  }
+  ]
 }
