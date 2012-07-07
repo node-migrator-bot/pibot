@@ -19,7 +19,7 @@ var target = path.join(path.resolve(process.argv[3]), botname);
 /*
  * Create directory
  */
-if (!path.existsSync(target)) {
+if (!fs.existsSync(target)) {
   try {
     fs.mkdirSync(target, 0755);
   } catch (err) {
@@ -33,7 +33,7 @@ if (!path.existsSync(target)) {
  * Make schemas directory
  */
 var schemas = path.join(target, 'schemas');
-if (!path.existsSync(schemas)) {
+if (!fs.existsSync(schemas)) {
   fs.mkdirSync(schemas, 0755);
   fs.writeFileSync(path.join(schemas, '.gitkeep'), '');
   winston.info('Created schemas directory'.yellow);
@@ -43,7 +43,7 @@ if (!path.existsSync(schemas)) {
  * Make scripts directory
  */
 var scripts = path.join(target, 'scripts');
-if (!path.existsSync(scripts)) {
+if (!fs.existsSync(scripts)) {
   fs.mkdirSync(scripts, 0755);
   fs.writeFileSync(path.join(scripts, '.gitkeep'), '');
   winston.info('Created scripts directory'.magenta);

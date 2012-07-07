@@ -180,7 +180,7 @@ pibot.loadPath = function (dir) {
  */
 pibot.loadSchemas = function (dir) {
   winston.info(('Loading schemas from ' + dir).yellow);
-  if (path.existsSync(dir)) {
+  if (fs.existsSync(dir)) {
     fs.readdirSync(dir).forEach(function (e,i,a) {
       pibot.loadSchema(dir, e);
     });
@@ -194,7 +194,7 @@ pibot.loadSchemas = function (dir) {
  */
 pibot.loadScripts = function (dir) {
   winston.info(('Loading scripts from ' + dir).magenta);
-  if (path.existsSync(dir)) {
+  if (fs.existsSync(dir)) {
     fs.readdirSync(dir).forEach(function (e,i,a) {
       pibot.loadScript(dir, e);
     });
